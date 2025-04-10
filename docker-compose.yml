@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  kata_web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    image: kata_image
+    container_name: kata-web
+    volumes:
+      - .:/kata/
+    ports:
+      - 8988:9900
+    command: sh -c "python manage.py showmigrations && python manage.py runserver 0.0.0.0:9900"
+    depends_on:
+      - kata_db
+    stdin_open: true
+    tty: true
+
+  kata_db:
+    image: postgres:14.1-alpine
+    volumes:
+      - kata_volume:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - '5999:5432'
+    container_name: kata_db
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_HOST}
+
+volumes:
+  kata_volume:
+
+
+networks:
+  default:
+    name: kata_network
+    external: false

@@ -84,12 +84,12 @@ WSGI_APPLICATION = 'Checkout_Kata.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": config("DB_ENGINE"),
-        "NAME": config("DB_NAME"),
+        "ENGINE": config("DB_ENGINE", default="django.db.backends.postgresql"),
+        "NAME": config("DB_NAME", default="kata_db"),
         "USER": config("DB_USER"),
         "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST"),
-        "PORT": config("DB_PORT"),
+        "HOST": config("DB_HOST", default="kata_db"),
+        "PORT": config("DB_PORT", default="5432"),
     }
 }
 

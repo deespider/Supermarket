@@ -1,0 +1,46 @@
+[
+{
+    "model": "shop.item",
+    "pk": 2,
+    "fields": {
+        "created_at": "2025-04-11T05:38:56.414Z",
+        "updated_at": "2025-04-11T05:38:56.414Z",
+        "status": 1,
+        "name": "A",
+        "unit_price": 50.0
+    }
+},
+{
+    "model": "shop.item",
+    "pk": 3,
+    "fields": {
+        "created_at": "2025-04-11T07:00:56.081Z",
+        "updated_at": "2025-04-11T07:00:56.081Z",
+        "status": 1,
+        "name": "B",
+        "unit_price": 30.0
+    }
+},
+{
+    "model": "shop.item",
+    "pk": 4,
+    "fields": {
+        "created_at": "2025-04-11T07:29:55.678Z",
+        "updated_at": "2025-04-11T07:29:55.678Z",
+        "status": 1,
+        "name": "C",
+        "unit_price": 20.0
+    }
+},
+{
+    "model": "shop.item",
+    "pk": 5,
+    "fields": {
+        "created_at": "2025-04-11T07:57:21.030Z",
+        "updated_at": "2025-04-11T07:57:21.031Z",
+        "status": 1,
+        "name": "D",
+        "unit_price": 15.0
+    }
+}
+]

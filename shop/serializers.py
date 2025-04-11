@@ -21,8 +21,3 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ['name', 'unit_price']
-
-    # def validate(self, data):
-    #     if data['valid_until'] <= data['valid_from']:
-    #         raise serializers.ValidationError("valid_until must be after valid_from")
-    #     return data

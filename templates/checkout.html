@@ -20,7 +20,7 @@
 
     <form method="POST">
         {% csrf_token %}
-        <label>Enter Items (e.g., AABBCD):</label><br>
+        <label>Enter Items (e.g., AAAB):</label><br>
         <input type="text" name="cart" value="{{ cart|default_if_none:'' }}"><br>
         <button type="submit">Calculate Total</button>
     </form>

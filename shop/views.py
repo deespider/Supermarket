@@ -1,30 +1,24 @@
 import json
-from django.shortcuts import render
 import rest_framework.status as http_status
-from django.utils import timezone
+from core.views import BaseShopView
 from shop.models import Item, Offer
 from shop.serializers import OfferSerializer, ItemSerializer
-from django.views import View
-from django.shortcuts import render
 from shop.utils import calculate_total
-# Create your views here.
 
 
-class OfferView(View):
-    def __init__(self, **kwargs):
-        self.template_name = "offer_management.html"
+class OfferView(BaseShopView):
+    
+    template_name = "offer_management.html"
 
     def get(self, request):
-        offers = Offer.objects.all()
-        serializer = OfferSerializer(offers, many=True)
+        serializer = OfferSerializer(Offer.objects.all(), many=True)
         offers_data = json.dumps(serializer.data)
-        
         items = Item.objects.all().order_by("-id")
-        return render(request, self.template_name, {
+        data = self.get_context_data({
             "offers": offers_data,
             "items": items,
-            "current_date": timezone.now()
         })
+        return self.render(request, data)
 
     def post(self, request):
         data = {}
@@ -32,11 +26,10 @@ class OfferView(View):
             serializer = OfferSerializer(data=request.POST)
             offers = Offer.objects.all()
             offer_serializer = OfferSerializer(offers, many=True)
-            data = {
+            data = self.get_context_data({
                 "offers": json.dumps(offer_serializer.data),
                 "items": Item.objects.all().order_by("-id"),
-                "current_date" : timezone.now()
-            }
+            })
 
             if serializer.is_valid():
                 serializer.save()
@@ -46,21 +39,21 @@ class OfferView(View):
         except Exception as e:
             data["errors"] = f"Error: {str(e)}"
         
-        return render(request, self.template_name, data)
+        return self.render(request, data)
         
 
 
-class AddItemView(View):
-    def __init__(self, **kwargs):
-        self.template_name = "items_manager.html"
+class AddItemView(BaseShopView):
+    
+    template_name = "items_manager.html"
 
     def get(self, request):
         items = Item.objects.all().order_by("-id")
         serializer = ItemSerializer(items, many=True)
-        return render(request, self.template_name, {
+        data = self.get_context_data({
             "items": json.dumps(serializer.data),
-            "current_date": timezone.now()
         })
+        return self.render(request, data)
 
     def post(self, request):
         data = {}
@@ -69,9 +62,9 @@ class AddItemView(View):
             items = Item.objects.all().order_by("-id")
             items_serializer = ItemSerializer(items, many=True)
 
-            data = {
+            data = self.get_context_data({
                 "items": json.dumps(items_serializer.data)
-            }
+            })
 
             if serializer.is_valid():
                 serializer.save()
@@ -81,29 +74,22 @@ class AddItemView(View):
         except Exception as e:
             data["errors"] = f"Error: {str(e)}"
 
-        return render(request, self.template_name, data)
+        return self.render(request, data)
 
 
-class CheckoutView(View):
-    def __init__(self, **kwargs):
-        self.template_name = "checkout.html"
+class CheckoutView(BaseShopView):
+    template_name = "checkout.html"
 
     def get(self, request):
-        return render(request, self.template_name)
+        return self.render(request)
 
     def post(self, request):
+        items = request.POST.get("cart", "")
+        data = self.get_context_data({"cart": items})
         try:
-            items = request.POST.get("cart", "")
-            total_price = calculate_total(items.upper())
-            data = {
-                "cart": items,
-                "total_price": total_price
-            }
+            data["total_price"] = calculate_total(items.upper())
         except Exception as e:
-            data = {
-                "cart": items,
-                "errors" : {str(e)}
-            }
+            data["errors"] = str(e)
 
-        return render(request, self.template_name, data)
+        return self.render(request, data)
         

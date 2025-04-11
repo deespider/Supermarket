@@ -4,10 +4,11 @@ Simple app to add Items, Offers and handle Billing
 
 ## Environment Variables
 
-Pleas add this environment variables to your .env file.
+Pleas add this environment variables to your .env file in project root directory.
 Also Add values accordingly
 
-`DB_ENGINE=django.db.backends.postgresql`
+
+`DB_ENGINE=django.db.backends.postgresql` #Use according to desired engine and db service
 
 `DB_NAME=`
 

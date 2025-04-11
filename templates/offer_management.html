@@ -12,7 +12,6 @@
 <body>
     <h1>Offer Management</h1>
 
-    <!-- Add Offer Form -->
     <div class="form-section">
         <h2>Add New Offer</h2>
         <form method="POST" id="add-offer-form">
@@ -38,7 +37,6 @@
         </form>
     </div>
 
-    <!-- Offer List -->
     <div class="offer-list">
         <h2>Existing Offers</h2><a href="{% url 'offers_create_view' %}" id="add-item-btn" class="btn btn-primary">Refresh</a>
         <table border="1">
@@ -54,7 +52,6 @@
         </table>
     </div>
 
-    <!-- Messages -->
     {% if message %}
         <p class="success">{{ message }}</p>
     {% endif %}
@@ -66,7 +63,6 @@
         const offers = JSON.parse('{{ offers|safe }}');
         const tableBody = document.getElementById('offer-table-body');
 
-        // Populate offer list
         offers.forEach(offer => {
             const row = document.createElement('tr');
             row.innerHTML = `

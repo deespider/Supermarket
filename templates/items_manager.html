@@ -12,7 +12,6 @@
 <body>
     <h1>Item Management</h1>
 
-    <!-- Add Offer Form -->
     <div class="form-section">
         <h2>Add New Item</h2>
         <form method="POST" id="add-offer-form">
@@ -25,7 +24,6 @@
         </form>
     </div>
 
-    <!-- Offer List -->
     <div class="offer-list">
         <h2>Existing Items</h2> <a href="{% url 'add_item' %}" id="add-item-btn" class="btn btn-primary">Refresh</a>
         <table border="1">
@@ -37,7 +35,6 @@
         </table>
     </div>
 
-    <!-- Messages -->
     {% if message %}
         <p class="success">{{ message }}</p>
     {% endif %}

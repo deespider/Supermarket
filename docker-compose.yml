@@ -13,7 +13,7 @@ services:
     ports:
       - 8988:8000
     command: sh -c "python manage.py showmigrations && python manage.py runserver 0.0.0.0:8000"
-    depends_on:
+    depends_on: #ommit if not using DB container
       - kata_db
     stdin_open: true
     tty: true

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'shop',
+    'core'
 ]
 
 MIDDLEWARE = [
@@ -61,7 +63,7 @@ REST_FRAMEWORK = {
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,12 +84,12 @@ WSGI_APPLICATION = 'Checkout_Kata.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": config("DB_ENGINE"),
-        "NAME": config("DB_NAME"),
+        "ENGINE": config("DB_ENGINE", default="django.db.backends.postgresql"),
+        "NAME": config("DB_NAME", default="kata_db"),
         "USER": config("DB_USER"),
         "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST"),
-        "PORT": config("DB_PORT"),
+        "HOST": config("DB_HOST", default="kata_db"),
+        "PORT": config("DB_PORT", default="5432"),
     }
 }
 

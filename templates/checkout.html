@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+    <style>
+        .offer-list { margin-top: 20px; }
+        .form-section { margin-bottom: 20px; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Supermarket Checkout</h1>
+
+    <a href="{% url 'add_item' %}">Add or View Items</a> |
+    <a href="{% url 'offers_create_view' %}">Add or View Offers</a>
+
+    <br>
+    <br>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>Enter Items (e.g., AABBCD):</label><br>
+        <input type="text" name="cart" value="{{ cart|default_if_none:'' }}"><br>
+        <button type="submit">Calculate Total</button>
+    </form>
+
+    {% if total_price is not None %}
+        <h3>Total Price: Rs.{{ total_price }}</h3>
+    {% endif %}
+    {% if errors %}
+        <p class="error">{{ errors }}</p>
+    {% endif %}
+    
+
+
+</body>
+</html>

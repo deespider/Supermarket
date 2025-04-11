@@ -11,8 +11,8 @@ services:
     volumes:
       - .:/kata/
     ports:
-      - 8988:9900
-    command: sh -c "python manage.py showmigrations && python manage.py runserver 0.0.0.0:9900"
+      - 8988:8000
+    command: sh -c "python manage.py showmigrations && python manage.py runserver 0.0.0.0:8000"
     depends_on:
       - kata_db
     stdin_open: true

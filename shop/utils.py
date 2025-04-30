@@ -37,17 +37,13 @@ def calculate_total(cart):
             Q(item=item) &
             Q(valid_from__lte=now) &
             (Q(valid_till__gte=now) | Q(valid_till__isnull=True))
-        ).order_by('-id')
+        ).order_by('-quantity')
 
-        offer_exists = False
         for offer in offers:
             if frequency >= offer.quantity:
-                offer_group = frequency // offer.quantity
-                remainder = frequency % offer.quantity
-                total += offer_group * offer.offer_price + remainder * item.unit_price
-                offer_exists = True
-                break
-
-        if not offer_exists:
-            total += frequency * item.unit_price
+                groups = frequency // offer.quantity
+                total += groups * offer.offer_price
+                frequency = frequency % offer.quantity
+        
+        total += frequency * item.unit_price
     return total
